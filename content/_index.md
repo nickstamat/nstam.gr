@@ -1,5 +1,5 @@
 +++
-title = "Hello, friend."
+title = "Hello, world!"
 showFullContent = true
 layout = "single"
 +++
