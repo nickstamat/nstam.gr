@@ -1,0 +1,38 @@
+baseurl = "/"
+languageCode = "en-us"
+title = "My New Hugo Site"
+theme = "terminal"
+paginate = 100
+disableKinds = ["section"]
+
+[params]
+  # dir name of your blog content (default is `content/posts`)
+  contentTypeName = ""
+  # ["orange", "blue", "red", "green", "pink"]
+  themeColor = "green"
+  # if you set this to 0, only submenu trigger will be visible
+  showMenuItems = 2
+  # show selector to switch language
+  showLanguageSelector = false
+  # set theme to full screen width
+  fullWidthTheme = false
+  # center theme with default width
+  centerTheme = true
+  # set a custom favicon (default is a `themeColor` square)
+  # favicon = "favicon.ico"
+
+
+[languages]
+  [languages.en]
+    languageName = "English"
+    title = "Nikolaos Stamatopoulos"
+    subtitle = "Software Engineer"
+    keywords = ""
+    copyright = "Nikolaos Stamatopoulos. Powered by <a href=\"https://gohugo.io/\">Hugo</a>."
+    menuMore = "Show more"
+    readMore = "Read more"
+    readOtherPosts = "Read other posts"
+
+    [languages.en.params.logo]
+      logoText = "NS"
+      logoHomeLink = "/"
