@@ -1,0 +1,25 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+h1 {
+  @apply text-2xl font-bold;
+}
+
+h2 {
+  @apply text-xl font-bold;
+}
+
+a {
+  @apply underline;
+}
+
+.title {
+  @apply relative border-dotted border-b-2 border-accent pb-4;
+}
+
+.title:after {
+  @apply absolute block w-full border-dotted border-b-2 border-accent;
+  content: '';
+  bottom: 2px;
+}
