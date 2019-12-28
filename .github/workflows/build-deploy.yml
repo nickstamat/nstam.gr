@@ -21,12 +21,7 @@ jobs:
           docker build . -t nickstamat/nstam:${{ github.sha }}
           docker push nickstamat/nstam:${{ github.sha }}
         env:
-          DOCKER_BUILDKIT: '1'
-
-  deploy:
-    runs-on: ubuntu-18.04
-    steps:
-      - uses: actions/checkout@v2
+          DOCKER_BUILDKIT: "1"
 
       - uses: actions/checkout@v2
         with:
