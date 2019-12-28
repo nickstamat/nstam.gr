@@ -1,4 +1,4 @@
-FROM node:12-alpine AS build
+FROM node:12.14.0-alpine3.11@sha256:57a34fed5fd5f18879c5915e3d0daad5d03825c997763e78a72d3c96a7f1476f AS build
 WORKDIR /build
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
