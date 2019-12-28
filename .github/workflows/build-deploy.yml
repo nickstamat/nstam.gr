@@ -1,11 +1,13 @@
-name: ci
+name: build-deploy
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - "master"
 
 jobs:
-  validate:
+  build:
     runs-on: ubuntu-18.04
-
     steps:
       - uses: actions/checkout@v2
 
@@ -24,7 +26,7 @@ jobs:
         with:
           repository: nickstamat/k8s-dev
           token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-          path: '_k8s-dev'
+          path: "_k8s-dev"
 
       - run: |
           cp ops/k8s/templates/service.yml $GITHUB_WORKSPACE/_k8s-dev/k8s/nstam/
@@ -32,5 +34,5 @@ jobs:
       - run: |
           cd $GITHUB_WORKSPACE/_k8s-dev/
           git add -v k8s/nstam/
-          git commit -v "Update k8s/nstam"
-          git push -v
+          git commit -m "Update k8s/nstam"
+          git push origin master
