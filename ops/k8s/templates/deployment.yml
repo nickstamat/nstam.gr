@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nstam
+  namespace: nstam
+  labels:
+    app: nstam
+spec:
+  replicas: 2
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: nstam
+  template:
+    metadata:
+      labels:
+        app: nstam
+    spec:
+      containers:
+        - name: nstam
+          image: nstam/nstam:$GITHUB_SHA
+          resources:
+            requests:
+              cpu: 20m
+              memory: 16Mi
+            limits:
+              cpu: 20m
+              memory: 16Mi
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: regcred
