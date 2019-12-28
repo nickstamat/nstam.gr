@@ -34,5 +34,7 @@ jobs:
       - run: |
           cd $GITHUB_WORKSPACE/_k8s-dev/
           git add -v k8s/nstam/
+          git config --global user.email "stamatopoulosnikos@gmail.com"
+          git config --global user.name "GitHub Actions [nstam.gr]"
           git commit -m "Update k8s/nstam"
           git push origin master
