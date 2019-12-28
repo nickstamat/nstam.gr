@@ -7,9 +7,6 @@ module.exports = {
       'fira-mono': ['Fira Mono', 'monospace'],
     },
     extend: {
-      width: {
-        '864': '864px',
-      },
       colors: {
         dark: '#1f222a',
         accent: '#78e2a0',
