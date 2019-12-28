@@ -36,6 +36,7 @@ jobs:
 
       - run: |
           rm -f $GITHUB_WORKSPACE/_k8s-dev-services/k8s/nstam/*
+          pwd
           envsubst <ops/k8s/templates/deployment.yml >file.tmp && mv file.tmp ops/k8s/templates/deployment.yml
           cat ops/k8s/templates/deployment.yml
           cp ops/k8s/templates/* $GITHUB_WORKSPACE/_k8s-dev-services/k8s/nstam/
