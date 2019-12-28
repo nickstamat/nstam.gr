@@ -2,12 +2,20 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@font-face {
+  font-family: 'Fira Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/FiraMono-Regular.woff2') format('woff2');
+}
+
 h1 {
-  @apply text-2xl font-bold;
+  @apply text-2xl;
 }
 
 h2 {
-  @apply text-xl font-bold;
+  @apply text-xl;
 }
 
 a {

@@ -1,8 +1,10 @@
 // const TerserJSPlugin = require('terser-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const DevMode = process.env.NODE_ENV !== 'production';
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const devMode = process.env.NODE_ENV !== 'production';
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: './css/main.css',
@@ -21,6 +23,18 @@ module.exports = {
           'postcss-loader',
         ],
       },
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/',
+            },
+          },
+        ],
+      },
     ],
   },
   optimization: {
@@ -32,7 +46,11 @@ module.exports = {
       filename: 'index.html',
     }),
     new MiniCssExtractPlugin({
-      filename: devMode ? '[name].css' : '[name].[hash].css',
+      filename: DevMode ? '[name].css' : '[name].[hash].css',
     }),
+    new CopyPlugin([
+      { from: './robots.txt' },
+    ]),
+    new CleanWebpackPlugin(),
   ],
 };

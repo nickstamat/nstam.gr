@@ -4,7 +4,7 @@ module.exports = {
       center: true,
     },
     fontFamily: {
-      fira: ['Fira Code', 'monospace'],
+      'fira-mono': ['Fira Mono', 'monospace'],
     },
     extend: {
       width: {
