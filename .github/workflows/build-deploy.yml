@@ -6,7 +6,7 @@ on:
       - "master"
 
 jobs:
-  build:
+  build-deploy:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -16,25 +16,27 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      # - run: |
-      #     docker build . -t nickstamat/nstam:${{ github.sha }}
-      #     docker push nickstamat/nstam:${{ github.sha }}
-      #   env:
-      #     DOCKER_BUILDKIT: '1'
+      - run: |
+          docker build . -t nickstamat/nstam:${{ github.sha }}
+          docker push nickstamat/nstam:${{ github.sha }}
+        env:
+          DOCKER_BUILDKIT: "1"
 
       - uses: actions/checkout@v2
         with:
-          repository: nickstamat/k8s-dev
+          repository: nickstamat/k8s-dev-services
           token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-          path: "_k8s-dev"
+          path: _k8s-dev-services
 
       - run: |
-          cp ops/k8s/templates/service.yml $GITHUB_WORKSPACE/_k8s-dev/k8s/nstam/
+          rm -f $GITHUB_WORKSPACE/_k8s-dev-services/k8s/nstam/*
+          envsubst <$GITHUB_WORKSPACE/ops/k8s/templates/deployment.yml >file.tmp && mv file.tmp $GITHUB_WORKSPACE/ops/k8s/templates/deployment.yml
+          cp $GITHUB_WORKSPACE/ops/k8s/templates/* $GITHUB_WORKSPACE/_k8s-dev-services/k8s/nstam/
 
       - run: |
-          cd $GITHUB_WORKSPACE/_k8s-dev/
-          git add -v k8s/nstam/
+          cd $GITHUB_WORKSPACE/_k8s-dev-services/
           git config --global user.email "stamatopoulosnikos@gmail.com"
           git config --global user.name "GitHub Actions [nstam.gr]"
+          git add -v k8s/nstam/
           git commit -m "Update k8s/nstam"
           git push origin master
