@@ -1,0 +1,19 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nstam
+  namespace: nstam
+  labels:
+    app: nstam
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`nstam.gr`)
+      kind: Rule
+      services:
+        - name: nstam
+          port: 80
+  tls:
+    certResolver: default
