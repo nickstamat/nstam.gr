@@ -10,7 +10,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`nstam.gr`)
+    - match: Host(`nstam.gr`) || Host(`www.nstam.gr`)
       kind: Rule
       services:
         - name: nstam
