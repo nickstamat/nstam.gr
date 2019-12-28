@@ -17,11 +17,11 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      # - run: |
-      #     docker build . -t nickstamat/nstam:${{ github.sha }}
-      #     docker push nickstamat/nstam:${{ github.sha }}
-      #   env:
-      #     DOCKER_BUILDKIT: '1'
+      - run: |
+          docker build . -t nickstamat/nstam:${{ github.sha }}
+          docker push nickstamat/nstam:${{ github.sha }}
+        env:
+          DOCKER_BUILDKIT: '1'
 
   deploy:
     runs-on: ubuntu-18.04
