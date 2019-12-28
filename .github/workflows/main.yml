@@ -19,3 +19,17 @@ jobs:
           docker push nickstamat/nstam:${{ github.sha }}
         env:
           DOCKER_BUILDKIT: '1'
+
+      - uses: actions/checkout@v2
+        with:
+          repository: nickstamat/k8s-dev
+          token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+          path: '_k8s-dev'
+
+      - run: |
+          cp ops/k8s/templates/service.yml $GITHUB_WORKSPACE/_k8s-dev/k8s/nstam/
+
+      - run: |
+          cd $GITHUB_WORKSPACE/_k8s-dev/
+          git add -v k8s/nstam/
+          git status
