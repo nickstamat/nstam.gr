@@ -7,8 +7,8 @@ metadata:
   labels:
     app: nstam
 spec:
-  replicas: 1
-  revisionHistoryLimit: 1
+  replicas: 2
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app: nstam
@@ -22,10 +22,10 @@ spec:
           image: nickstamat/nstam:$GITHUB_SHA
           resources:
             requests:
-              cpu: 20m
+              cpu: 50m
               memory: 32Mi
             limits:
-              cpu: 20m
+              cpu: 50m
               memory: 32Mi
           ports:
             - containerPort: 80
