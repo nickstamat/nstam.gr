@@ -27,7 +27,26 @@ spec:
               cpu: 50m
               memory: 32Mi
           ports:
-            - containerPort: 80
+            - name: web
+              containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: web
+            failureThreshold: 1
+            initialDelaySeconds: 10
+            periodSeconds: 1
+            successThreshold: 1
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: web
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 1
+            successThreshold: 1
+            timeoutSeconds: 2
           volumeMounts:
             - mountPath: /etc/nginx/conf.d
               readOnly: true
