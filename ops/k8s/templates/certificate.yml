@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: nstam-cert
+  namespace: nstam
+spec:
+  secretName: nstam-cert
+  issuerRef:
+    name: letsencrypt-prod
+  dnsNames:
+    - nstam.gr
+    - www.nstam.gr

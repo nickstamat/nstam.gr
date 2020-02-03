@@ -1,4 +1,3 @@
----
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
@@ -16,4 +15,4 @@ spec:
         - name: nstam
           port: 80
   tls:
-    certResolver: default
+    secretName: nstam-cert
