@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-default-conf
+data:
+  default.conf: |
+    server {
+      listen       80;
+      server_name  _;
+      gzip         on;
+
+      location / {
+        root      /app;
+        index     index.html;
+        try_files $uri $uri/ $uri.html =404;
+      }
+    }
