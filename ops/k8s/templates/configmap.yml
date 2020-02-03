@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: nginx-default-conf
+  namespace: nstam
 data:
   default.conf: |
     server {
