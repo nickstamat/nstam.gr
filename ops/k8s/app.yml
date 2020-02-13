@@ -124,9 +124,9 @@ spec:
             httpGet:
               path: /
               port: web
-            failureThreshold: 1
+            failureThreshold: 2
             initialDelaySeconds: 10
-            periodSeconds: 1
+            periodSeconds: 2
             successThreshold: 1
             timeoutSeconds: 2
           livenessProbe:
@@ -135,7 +135,7 @@ spec:
               port: web
             failureThreshold: 3
             initialDelaySeconds: 10
-            periodSeconds: 1
+            periodSeconds: 2
             successThreshold: 1
             timeoutSeconds: 2
           volumeMounts:
