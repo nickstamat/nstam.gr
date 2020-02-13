@@ -76,8 +76,6 @@ metadata:
   namespace: nstam
   labels:
     app: nstam
-  annotations:
-    fluxcd.io/ignore: 'true'
 spec:
   replicas: 2
   revisionHistoryLimit: 1
