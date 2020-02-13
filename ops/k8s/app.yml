@@ -1,0 +1,153 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Issuer
+metadata:
+  name: letsencrypt-prod
+  namespace: nstam
+spec:
+  acme:
+    # The ACME server URL
+    server: https://acme-v02.api.letsencrypt.org/directory
+    # Email address used for ACME registration
+    email: stamatopoulosnikos@gmail.com
+    # Name of a secret used to store the ACME account private key
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    # Enable HTTP01 validations
+    solvers:
+      - selector: {}
+        http01:
+          ingress:
+            class: traefik
+
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: nstam-cert
+  namespace: nstam
+spec:
+  secretName: nstam-cert
+  issuerRef:
+    name: letsencrypt-prod
+  dnsNames:
+    - nstam.gr
+    - www.nstam.gr
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nstam
+  namespace: nstam
+  labels:
+    app: nstam
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`nstam.gr`) || Host(`www.nstam.gr`)
+      kind: Rule
+      services:
+        - name: nstam
+          port: 80
+  tls:
+    secretName: nstam-cert
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nstam
+  namespace: nstam
+  labels:
+    app: nstam
+spec:
+  selector:
+    app: nstam
+  ports:
+    - name: web
+      port: 80
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-default-conf
+  namespace: nstam
+data:
+  default.conf: |
+    server {
+      listen       80;
+      server_name  _;
+      gzip         on;
+
+      location / {
+        root      /app;
+        index     index.html;
+        try_files $uri $uri/ $uri.html =404;
+      }
+    }
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nstam
+  namespace: nstam
+  labels:
+    app: nstam
+spec:
+  replicas: 2
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: nstam
+  template:
+    metadata:
+      labels:
+        app: nstam
+    spec:
+      containers:
+        - name: nstam
+          image: nickstamat/nstam:$GITHUB_SHA
+          resources:
+            requests:
+              cpu: 50m
+              memory: 32Mi
+            limits:
+              cpu: 50m
+              memory: 32Mi
+          ports:
+            - name: web
+              containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: web
+            failureThreshold: 1
+            initialDelaySeconds: 10
+            periodSeconds: 1
+            successThreshold: 1
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /
+              port: web
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 1
+            successThreshold: 1
+            timeoutSeconds: 2
+          volumeMounts:
+            - mountPath: /etc/nginx/conf.d
+              readOnly: true
+              name: nginx-default-conf
+      imagePullSecrets:
+        - name: regcred
+      volumes:
+        - name: nginx-default-conf
+          configMap:
+            name: nginx-default-conf
+            items:
+              - key: default.conf
+                path: default.conf

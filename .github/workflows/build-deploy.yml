@@ -24,17 +24,17 @@ jobs:
 
       - uses: actions/checkout@v2
         with:
-          repository: nickstamat/k8s-dev-services
+          repository: nickstamat/k8s-dev
           token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-          path: _k8s-dev-services
+          path: _k8s-dev
 
       - run: |
-          rm -f $GITHUB_WORKSPACE/_k8s-dev-services/k8s/nstam/*
-          envsubst <$GITHUB_WORKSPACE/ops/k8s/templates/deployment.yml >file.tmp && mv file.tmp $GITHUB_WORKSPACE/ops/k8s/templates/deployment.yml
-          cp $GITHUB_WORKSPACE/ops/k8s/templates/* $GITHUB_WORKSPACE/_k8s-dev-services/k8s/nstam/
+          rm -f $GITHUB_WORKSPACE/_k8s-dev/k8s/nstam/*
+          envsubst <$GITHUB_WORKSPACE/ops/k8s/app.yml >file.tmp && mv file.tmp $GITHUB_WORKSPACE/ops/k8s/app.yml
+          cp $GITHUB_WORKSPACE/ops/k8s/* $GITHUB_WORKSPACE/_k8s-dev/k8s/nstam/
 
       - run: |
-          cd $GITHUB_WORKSPACE/_k8s-dev-services/
+          cd $GITHUB_WORKSPACE/_k8s-dev/
           git config --global user.email "stamatopoulosnikos@gmail.com"
           git config --global user.name "GitHub Actions [nstam.gr]"
           git add -v k8s/nstam/
