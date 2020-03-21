@@ -1,37 +1,17 @@
 apiVersion: cert-manager.io/v1alpha2
-kind: Issuer
-metadata:
-  name: letsencrypt-prod
-  namespace: nstam
-spec:
-  acme:
-    # The ACME server URL
-    server: https://acme-v02.api.letsencrypt.org/directory
-    # Email address used for ACME registration
-    email: stamatopoulosnikos@gmail.com
-    # Name of a secret used to store the ACME account private key
-    privateKeySecretRef:
-      name: letsencrypt-prod
-    # Enable HTTP01 validations
-    solvers:
-      - selector: {}
-        http01:
-          ingress:
-            class: traefik
-
----
-apiVersion: cert-manager.io/v1alpha2
 kind: Certificate
 metadata:
   name: nstam-cert
   namespace: nstam
 spec:
   secretName: nstam-cert
-  issuerRef:
-    name: letsencrypt-prod
   dnsNames:
     - nstam.gr
     - www.nstam.gr
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+    group: cert-manager.io
 
 ---
 apiVersion: traefik.containo.us/v1alpha1
