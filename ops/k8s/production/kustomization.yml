@@ -1,0 +1,22 @@
+namespace: nstam
+commonLabels:
+  app: nstam
+
+bases:
+  - ../base
+
+resources:
+  - ingress.yml
+
+images:
+  - name: nstam
+    newName: nickstamat/nstam
+    newTag: $GITHUB_COMMIT
+
+configMapGenerator:
+  - name: nginx-conf
+    files:
+      - nginx.conf
+
+generatorOptions:
+  disableNameSuffixHash: true
