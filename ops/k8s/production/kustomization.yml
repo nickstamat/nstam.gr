@@ -11,7 +11,7 @@ resources:
 images:
   - name: nstam
     newName: nickstamat/nstam
-    newTag: $GITHUB_COMMIT
+    newTag: $GITHUB_SHA
 
 configMapGenerator:
   - name: nginx-conf
