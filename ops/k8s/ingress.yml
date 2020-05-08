@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: nstam
+  namespace: nstam
+  labels:
+    app: nstam
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+spec:
+  rules:
+    - host: nstam.gr
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: nstam
+              servicePort: 80
+  tls:
+    - hosts:
+        - nstam.gr
+        - www.nstam.gr
+      secretName: nstam-acme-tls
