@@ -34,7 +34,7 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
             privileged: false
-            readOnlyRootFilesystem: true
+            readOnlyRootFilesystem: false
             runAsNonRoot: true
           volumeMounts:
             - mountPath: /etc/nginx/conf.d
