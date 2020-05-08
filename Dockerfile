@@ -1,4 +1,7 @@
-FROM node:12.16.0-alpine3.11@sha256:aa52cfbaef33dc2f3bc41228072bce75705733d4d90cf086260df15fd7c65319 AS build
+ARG base_node=node:12-alpine
+ARG base_nginx=nginx:1.17.10-alpine@sha256:630d39f3970740583f96ec6b26cc7b0f531c35a5c2068c551f02f5236b1e373f
+
+FROM $base_node AS build
 WORKDIR /build
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
@@ -6,5 +9,5 @@ COPY . .
 ENV NODE_ENV production
 RUN yarn build:production
 
-FROM nginx:1.17.8-alpine@sha256:fa266689d339b47a4a9d1148015d4bc5c4914d3d7e3ec061d85aa8813dfd485c
+FROM $base_nginx
 COPY --from=build /build/dist/ /app
