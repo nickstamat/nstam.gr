@@ -30,9 +30,7 @@ jobs:
 
       - run: |
           rm -f $GITHUB_WORKSPACE/_k8s-dev/k8s/nstam/*
-          for i in $GITHUB_WORKSPACE/ops/k8s/*; do
-            envsubst <$i >$i.tmp && mv $i.tmp $i
-          done
+          envsubst <$GITHUB_WORKSPACE/ops/k8s/app.yml >file.tmp && mv file.tmp $GITHUB_WORKSPACE/ops/k8s/app.yml
           cp $GITHUB_WORKSPACE/ops/k8s/* $GITHUB_WORKSPACE/_k8s-dev/k8s/nstam/
 
       - run: |
