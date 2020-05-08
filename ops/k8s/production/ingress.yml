@@ -14,7 +14,7 @@ spec:
           - path: /
             backend:
               serviceName: nstam
-              servicePort: 80
+              servicePort: 8080
   tls:
     - hosts:
         - nstam.gr
