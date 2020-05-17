@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: nstam
 spec:
-  replicas: 2
+  replicas: 1
   revisionHistoryLimit: 1
   template:
     spec:
@@ -13,11 +13,11 @@ spec:
           imagePullPolicy: Always
           resources:
             requests:
-              cpu: 50m
-              memory: 32Mi
+              cpu: 20m
+              memory: 16Mi
             limits:
-              cpu: 50m
-              memory: 32Mi
+              cpu: 20m
+              memory: 16Mi
           ports:
             - name: web
               containerPort: 8080
