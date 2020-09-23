@@ -3,9 +3,6 @@ module.exports = {
     container: {
       center: true,
     },
-    fontFamily: {
-      'fira-mono': ['Fira Mono', 'monospace'],
-    },
     extend: {
       colors: {
         dark: '#1f222a',
