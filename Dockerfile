@@ -1,5 +1,5 @@
 ARG base_node=node:12-alpine
-ARG base_nginx=nginxinc/nginx-unprivileged:1.17.10-alpine@sha256:40b127d1f07c23c380447595ef7241649f04a882435b6d9bf2a5c2934d3619d4
+ARG base_nginx=nginxinc/nginx-unprivileged:1.18.0-alpine@sha256:a91139c25f03a1babe220de6bf351647d5ce944770f60443b37559bc89ff617c
 
 FROM $base_node AS build
 WORKDIR /build
