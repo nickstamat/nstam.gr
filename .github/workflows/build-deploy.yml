@@ -24,7 +24,7 @@ jobs:
           file: ./Dockerfile
           tags: nickstamat/nstam:${{ github.sha }}
           push: true
-          build-args: COMMIT_SHA:${{ github.sha }}
+          build-args: COMMIT_SHA=${{ github.sha }}
 
       - uses: actions/checkout@v2
         with:
