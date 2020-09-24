@@ -11,16 +11,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: azure/docker-login@v1
+      - uses: docker/login-action@v1
         with:
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_ACCESS_TOKEN }}
 
-      - run: |
-          docker build . --build-arg=COMMIT_SHA=${{ github.sha }} -t nickstamat/nstam:${{ github.sha }}
-          docker push nickstamat/nstam:${{ github.sha }}
+      - run: docker build . --build-arg=COMMIT_SHA=${{ github.sha }} -t docker push ghcr.io/nickstamat/nstam:${{ github.sha }}
         env:
           DOCKER_BUILDKIT: "1"
+
+      - run: docker push ghcr.io/nickstamat/nstam:${{ github.sha }}
 
       - uses: actions/checkout@v2
         with:
