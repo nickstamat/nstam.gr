@@ -17,7 +17,7 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
       - run: |
-          docker build . -t nickstamat/nstam:${{ github.sha }}
+          docker build . --build-arg=COMMIT_SHA=${{ github.sha }} -t nickstamat/nstam:${{ github.sha }}
           docker push nickstamat/nstam:${{ github.sha }}
         env:
           DOCKER_BUILDKIT: "1"
