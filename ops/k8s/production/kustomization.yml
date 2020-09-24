@@ -10,7 +10,7 @@ resources:
 
 images:
   - name: nstam
-    newName: ghcr.io/nickstamat/nstam
+    newName: nickstamat/nstam
     newTag: $GITHUB_SHA
 
 configMapGenerator:

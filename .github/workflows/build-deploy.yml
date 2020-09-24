@@ -14,14 +14,14 @@ jobs:
       - uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      - run: docker build . --build-arg=COMMIT_SHA=${{ github.sha }} -t ghcr.io/nickstamat/nstam:${{ github.sha }}
+      - run: docker build . --build-arg=COMMIT_SHA=${{ github.sha }} -t nickstamat/nstam:${{ github.sha }}
         env:
           DOCKER_BUILDKIT: "1"
 
-      - run: docker push ghcr.io/nickstamat/nstam:${{ github.sha }}
+      - run: docker push nickstamat/nstam:${{ github.sha }}
 
       - uses: actions/checkout@v2
         with:
