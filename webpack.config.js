@@ -47,7 +47,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new CopyPlugin({
-      patterns: [{ from: './robots.txt' }, { from: './images' }]
+      patterns: [{ from: './robots.txt' }, { from: './images' }],
     }),
     new MiniCssExtractPlugin({ filename: DevMode ? '[name].css' : '[name].[hash].css' }),
     new HtmlWebpackPlugin({ template: './index.html', filename: 'index.html' }),
