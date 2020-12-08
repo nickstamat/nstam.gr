@@ -1,28 +1,25 @@
-// const TerserJSPlugin = require('terser-webpack-plugin');
+const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const DevMode = process.env.NODE_ENV !== 'production';
 const HTMLInlineCSSWebpackPlugin = require('html-inline-css-webpack-plugin').default;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: './css/main.css',
   output: {
-    filename: '[name].[hash].js',
+    filename: '[name].[contenthash].js',
+    publicPath: '',
+    path: path.resolve(process.cwd(), 'dist'),
   },
   module: {
     rules: [
       {
         test: /\.css$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: process.env.NODE_ENV === 'development',
-            },
-          },
+          { loader: MiniCssExtractPlugin.loader, options: {} },
           { loader: 'css-loader', options: { importLoaders: 1 } },
           'postcss-loader',
         ],
@@ -42,14 +39,15 @@ module.exports = {
     ],
   },
   optimization: {
-    minimizer: [new OptimizeCSSAssetsPlugin({})],
+    minimize: true,
+    minimizer: [new CssMinimizerPlugin()],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new CopyPlugin({
       patterns: [{ from: './robots.txt' }, { from: './images' }],
     }),
-    new MiniCssExtractPlugin({ filename: DevMode ? '[name].css' : '[name].[hash].css' }),
+    new MiniCssExtractPlugin({ filename: DevMode ? '[name].css' : '[name].[contenthash].css' }),
     new HtmlWebpackPlugin({ template: './index.html', filename: 'index.html' }),
     new HTMLInlineCSSWebpackPlugin(),
   ],
