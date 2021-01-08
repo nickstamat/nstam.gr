@@ -48,7 +48,14 @@ module.exports = {
       patterns: [{ from: './robots.txt' }, { from: './images' }],
     }),
     new MiniCssExtractPlugin({ filename: DevMode ? '[name].css' : '[name].[contenthash].css' }),
-    new HtmlWebpackPlugin({ template: './index.html', filename: 'index.html' }),
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      filename: 'index.html',
+
+      // parameters to pass to template
+      commitRef: process.env.COMMIT_REF,
+      commitRefShort: process.env.COMMIT_REF.substring(0,7)
+    }),
     new HTMLInlineCSSWebpackPlugin(),
   ],
 };

@@ -22,4 +22,3 @@ jobs:
           file: ./Dockerfile
           tags: nickstamat/nstam:${{ github.sha }}
           push: false
-          build-args: COMMIT_SHA=${{ github.sha }}

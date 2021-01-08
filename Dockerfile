@@ -6,9 +6,6 @@ WORKDIR /build
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 COPY . .
-ARG COMMIT_SHA
-RUN sed -ri "s/COMMIT_SHA_PLACEHOLDER/$COMMIT_SHA/g" index.html
-RUN sed -ri "s/COMMIT_SHA_SHORT_PLACEHOLDER/${COMMIT_SHA:0:7}/g" index.html
 ENV NODE_ENV production
 RUN yarn build:production
 
