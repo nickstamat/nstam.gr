@@ -3,5 +3,6 @@
   command = "npm run build:production"
 
 [build.environment]
+  NODE_ENV = "production"
   NODE_VERSION = "14.16.0"
   NPM_VERSION = "7.7.6"
