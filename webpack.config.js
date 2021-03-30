@@ -53,8 +53,8 @@ module.exports = {
       filename: 'index.html',
 
       // parameters to pass to template
-      commitRef: process.env.COMMIT_REF,
-      commitRefShort: process.env.COMMIT_REF.substring(0,7)
+      commitRef: (process.env.COMMIT_REF ? process.env.COMMIT_REF : ''),
+      commitRefShort: (process.env.COMMIT_REF ? process.env.COMMIT_REF.substring(0,7) : '')
     }),
     new HTMLInlineCSSWebpackPlugin(),
   ],
