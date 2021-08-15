@@ -4,5 +4,5 @@
 
 [build.environment]
   NODE_ENV = "production"
-  NODE_VERSION = "14.17.0"
-  NPM_VERSION = "7.17.0"
+  NODE_VERSION = "16.6.2"
+  NPM_VERSION = "7.20.6"
