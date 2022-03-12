@@ -12,5 +12,5 @@ module.exports = {
   },
   variants: {},
   plugins: [],
-  purge: ['./index.html'],
+  content: ['./index.html'],
 };
